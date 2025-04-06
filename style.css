@@ -3,7 +3,7 @@ body {
     background-color: #f4f4f9;
     margin: 0;
     padding: 0;
-    background-image: url('bg.gif'); /* Assuming you have bg.gif */
+    background-image: url('bg.gif');
     background-size: cover;
 }
 
@@ -40,14 +40,14 @@ button {
 }
 
 button {
-    background-color: #4ECDC4; /* Updated */
+    background-color: #4ECDC4;
     color: white;
     border: none;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #3cb3ab; /* Updated */
+    background-color: #3cb3ab;
 }
 
 #status {
@@ -64,7 +64,7 @@ button:hover {
     border-top: 10px solid #4ECDC4;
     margin-top: 20%;
     margin-left: 46%;
-    background-image: url('pigeon.jpg'); /* Assuming you have pigeon.jpg */
+    background-image: url('pigeon.jpg');
     background-size: cover;
 }
 
@@ -72,6 +72,7 @@ button:hover {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
