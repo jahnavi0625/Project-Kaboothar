@@ -1,0 +1,9 @@
+[
+    {
+      "from": "test@example.com",
+      "subject": "Test Message",
+      "message": "This is a test received message.",
+      "date": "2025-04-06T10:00:00Z"
+    }
+  ]
+  

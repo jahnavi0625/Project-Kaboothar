@@ -1,0 +1,60 @@
+[
+  {
+    "to": "macharlalikhitha05@gmail.com",
+    "subject": "Test Email",
+    "message": "Let me Know!",
+    "date": "2025-04-06T11:39:57.014Z"
+  },
+  {
+    "to": "jahnavipotnuru25@gmail.com",
+    "subject": "Test Email",
+    "message": "Hey!",
+    "date": "2025-04-06T11:49:46.674Z"
+  },
+  {
+    "to": "jahnavipotnuru25@gmail.com",
+    "subject": "Test Email",
+    "message": "Hey!",
+    "date": "2025-04-06T11:50:27.818Z"
+  },
+  {
+    "to": "jahnavipotnuru25@gmail.com",
+    "subject": "Test Email",
+    "message": "hey!",
+    "date": "2025-04-06T11:50:42.748Z"
+  },
+  {
+    "to": [
+      "jahnavipotnuru25@gmail.com"
+    ],
+    "cc": [
+      "jahnavipotnuru17@gmail.com"
+    ],
+    "subject": "Test Email",
+    "attachment": "Screenshot (23).png",
+    "timestamp": "2025-04-06T12:04:58.312Z"
+  },
+  {
+    "to": [
+      "jahnavipotnuru25@gmail.com"
+    ],
+    "cc": [
+      "jahnavipotnuru17@gmail.com"
+    ],
+    "subject": "Test Email",
+    "attachment": "Screenshot (23).png",
+    "timestamp": "2025-04-06T12:08:48.497Z"
+  },
+  {
+    "to": "jahnavipotnuru25@gmail.com",
+    "subject": "Test Email",
+    "message": "Hey!",
+    "date": "2025-04-06T14:32:49.064Z"
+  },
+  {
+    "to": "jahnavipotnuru25@gmail.com",
+    "subject": "Test Email",
+    "message": "Hey!",
+    "date": "2025-04-06T14:32:51.818Z"
+  }
+]

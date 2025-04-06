@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Home - Email Dashboard</title>
+  <link rel="stylesheet" href="style-home.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Left Column -->
+    <div class="send-email-box">
+      <h3>Send Email</h3>
+      <form id="sendEmailForm" enctype="multipart/form-data">
+        <label for="to">To (comma-separated):</label>
+        <input type="text" id="to" name="to" required />
+
+        <label for="cc">CC (comma-separated):</label>
+        <input type="text" id="cc" name="cc" />
+
+        <label for="subject">Subject:</label>
+        <input type="text" id="subject" name="subject" required />
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+
+        <label for="attachment">Attachment:</label>
+        <input type="file" name="attachment" id="attachment" />
+
+        <button type="submit">Send</button>
+        <p id="status"></p>
+      </form>
+    </div>
+
+    <!-- Right Column -->
+    <div class="email-sections">
+      <div class="email-data-box">
+        <h3>Sent Emails</h3>
+        <button id="fetchEmails">View Sent Emails</button>
+      </div>
+
+      <div class="email-data-box">
+        <h3>Received Emails</h3>
+        <button id="fetchReceived">View Received Emails</button>
+      </div>
+
+      <div class="address-book-box">
+        <h3>Address Book</h3>
+        <form id="addContactForm">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="contactEmail" name="email" required />
+
+          <button type="submit">Add Contact</button>
+        </form>
+
+        <button id="fetchAddressBook">View Address Book</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popups -->
+  <div id="sentEmailsPopup" class="popup">
+    <span class="close-btn" onclick="closePopup('sentEmailsPopup')">×</span>
+    <h2>Sent Emails</h2>
+    <ul id="sentEmails"></ul>
+  </div>
+
+  <div id="receivedEmailsPopup" class="popup">
+    <span class="close-btn" onclick="closePopup('receivedEmailsPopup')">×</span>
+    <h2>Received Emails</h2>
+    <ul id="receivedEmails"></ul>
+  </div>
+
+  <div id="addressBookPopup" class="popup">
+    <span class="close-btn" onclick="closePopup('addressBookPopup')">×</span>
+    <h2>Address Book</h2>
+    <ul id="addressBook"></ul>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,85 +1,112 @@
 const express = require('express');
-const path = require('path');
 const multer = require('multer');
+const fs = require('fs');
 const nodemailer = require('nodemailer');
-require('dotenv').config();
+const dotenv = require('dotenv');
+const path = require('path');
 
+dotenv.config();
 const app = express();
-const upload = multer({
-    dest: 'uploads/'
+const upload = multer();
+
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
+// Email transporter using Gmail
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
 });
 
-app.use(express.static(path.join(__dirname, 'Project-Kaboothar')));
-app.use(express.urlencoded({
-    extended: true
-}));
+// Send email
+app.post('/send', upload.none(), async (req, res) => {
+  const { to, subject, message } = req.body;
 
-// Serve static files from 'public' folder
-app.use(express.static(path.join(__dirname, 'Project-Kaboothar')));
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to,
+    subject,
+    text: message,
+    html: `<p>${message}</p>`,
+  };
 
-// Route for main website content
-app.get('/home', (req, res) => {
-    res.sendFile(path.join(__dirname, 'Project-Kaboothar', 'home.html'));
-});
+  try {
+    await transporter.sendMail(mailOptions);
 
-app.post('/send-email', async (req, res) => {
-    const {
-        to,
-        cc,
-        subject,
-        message
-    } = req.body;
+    // Save sent email to sentEmails.json
+    const sentEmailsPath = path.join(__dirname, 'data', 'sentEmails.json');
+    let sentEmails = [];
 
-    const transporter = nodemailer.createTransport({
-        host: process.env.SMTP_HOST,
-        port: process.env.SMTP_PORT,
-        secure: false,
-        auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS,
-        },
+    if (fs.existsSync(sentEmailsPath)) {
+      sentEmails = JSON.parse(fs.readFileSync(sentEmailsPath));
+    }
+
+    sentEmails.push({
+      to,
+      subject,
+      message,
+      date: new Date().toISOString(),
     });
 
-    const mailOptions = {
-        from: process.env.SENDER_EMAIL,
-        to: to,
-        cc: cc,
-        subject: subject,
-        text: message,
-        attachments: req.file ? [{
-            filename: req.file.originalname,
-            path: req.file.path
-        }] : []
-    };
-
-    try {
-        const info = await transporter.sendMail(mailOptions);
-        res.status(200).json({
-            message: 'Email sent successfully',
-            info
-        });
-    } catch (error) {
-        res.status(500).json({
-            message: 'Error sending email',
-            error: error.message
-        });
-    }
+    fs.writeFileSync(sentEmailsPath, JSON.stringify(sentEmails, null, 2));
+    res.json({ message: 'Email sent successfully!' });
+  } catch (error) {
+    console.error('Error sending mail:', error);
+    res.status(500).json({ message: 'Failed to send email.' });
+  }
 });
 
+// Get sent emails
+app.get('/sent', (req, res) => {
+  const sentEmailsPath = path.join(__dirname, 'data', 'sentEmails.json');
+  if (!fs.existsSync(sentEmailsPath)) {
+    return res.json([]);
+  }
+  const sentEmails = JSON.parse(fs.readFileSync(sentEmailsPath));
+  res.json(sentEmails);
+});
+
+// Get received emails (Mock - since Gmail/Nodemailer can’t fetch inbox)
+app.get('/received', (req, res) => {
+  const receivedPath = path.join(__dirname, 'data', 'receivedEmails.json');
+  if (!fs.existsSync(receivedPath)) {
+    return res.json([]);
+  }
+  const receivedEmails = JSON.parse(fs.readFileSync(receivedPath));
+  res.json(receivedEmails);
+});
+
+// Add to address book
+app.post('/address-book', (req, res) => {
+  const { name, email } = req.body;
+  const addressBookPath = path.join(__dirname, 'data', 'addressBook.json');
+  let contacts = [];
+
+  if (fs.existsSync(addressBookPath)) {
+    contacts = JSON.parse(fs.readFileSync(addressBookPath));
+  }
+
+  contacts.push({ name, email });
+  fs.writeFileSync(addressBookPath, JSON.stringify(contacts, null, 2));
+  res.json({ message: 'Contact added successfully.' });
+});
+
+// Get address book
+app.get('/address-book', (req, res) => {
+  const addressBookPath = path.join(__dirname, 'data', 'addressBook.json');
+  if (!fs.existsSync(addressBookPath)) {
+    return res.json([]);
+  }
+  const contacts = JSON.parse(fs.readFileSync(addressBookPath));
+  res.json(contacts);
+});
+
+// Start server
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
-
-app.get('/fetch-emails', (req, res) => {
-    // Example data, replace with actual database or storage logic
-    const emails = ['example1@example.com', 'example2@example.com'];
-    res.json(emails);
-});
-
-app.get('/fetch-address-book', (req, res) => {
-    // Example data, replace with actual database or storage logic
-    const contacts = [
-        { name: 'John Doe', email: 'john@example.com' },
-        { name: 'Jane Doe', email: 'jane@example.com' }
-    ];
-    res.json(contacts);
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
 });
