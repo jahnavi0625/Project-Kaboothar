@@ -68,3 +68,18 @@ app.post('/send-email', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+
+app.get('/fetch-emails', (req, res) => {
+    // Example data, replace with actual database or storage logic
+    const emails = ['example1@example.com', 'example2@example.com'];
+    res.json(emails);
+});
+
+app.get('/fetch-address-book', (req, res) => {
+    // Example data, replace with actual database or storage logic
+    const contacts = [
+        { name: 'John Doe', email: 'john@example.com' },
+        { name: 'Jane Doe', email: 'jane@example.com' }
+    ];
+    res.json(contacts);
+});

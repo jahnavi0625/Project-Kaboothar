@@ -1,35 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaboothar - Email Sender</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Email Sender</title>
+    <link rel="stylesheet" type="text/css" href="style-home.css">
 </head>
 
 <body>
     <div class="container">
-        <h1>Kaboothar Email Sender</h1>
-        <form id="emailForm" enctype="multipart/form-data">
-            <label for="to">To:</label>
-            <input type="email" id="to" name="to" placeholder="Recipient's email" required>
+        <h1>Email Sender - Kaboothar</h1>
 
-            <label for="cc">CC:</label>
-            <input type="email" id="cc" name="cc" placeholder="CC (optional)">
+        <!-- Email Data Box -->
+        <div class="email-data-box">
+            <h2>Email Data</h2>
+            <div id="emailData"></div>
+        </div>
 
-            <label for="subject">Subject:</label>
-            <input type="text" id="subject" name="subject" placeholder="Email subject" required>
+        <!-- Send Email Box -->
+        <div class="send-email-box">
+            <h2>Send Email</h2>
+            <form id="emailForm" enctype="multipart/form-data">
+                <label for="to">To:</label><br>
+                <input type="email" id="to" name="to" required><br><br>
 
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
+                <label for="subject">Subject:</label><br>
+                <input type="text" id="subject" name="subject" required><br><br>
 
-            <label for="attachments">Attachments:</label>
-            <input type="file" id="attachments" name="attachments">
+                <label for="body">Body:</label><br>
+                <textarea id="body" name="body" rows="4" cols="50" required></textarea><br><br>
 
-            <button type="submit">Send Email</button>
-        </form>
-        <p id="status"></p>
+                <label for="attachment">Attachment:</label><br>
+                <input type="file" id="attachment" name="attachment"><br><br>
+
+                <button type="submit">Send Email</button>
+            </form>
+        </div>
+
+        <!-- Address Book Box -->
+        <div class="address-book-box">
+            <h2>Address Book</h2>
+            <div id="addressBook"></div>
+        </div>
+
+        <button id="fetchEmails">Fetch Emails</button>
+        <button id="fetchAddressBook">Fetch Address Book</button>
     </div>
 
     <script>
@@ -48,12 +62,46 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    document.getElementById('status').textContent = 'Email sent successfully!';
+                    console.log('Email sent successfully:', result);
                 } else {
-                    document.getElementById('status').textContent = `Error sending email: ${result.message}`;
+                    console.error('Error sending email:', result);
                 }
             } catch (error) {
-                document.getElementById('status').textContent = `Error sending email: ${error.message}`;
+                console.error('Error sending email:', error);
+            }
+        });
+
+        document.getElementById('fetchEmails').addEventListener('click', async function () {
+            try {
+                const response = await fetch('/fetch-emails');
+                const emails = await response.json();
+
+                const emailDataDiv = document.getElementById('emailData');
+                emailDataDiv.innerHTML = '';
+                emails.forEach(email => {
+                    const p = document.createElement('p');
+                    p.textContent = email;
+                    emailDataDiv.appendChild(p);
+                });
+            } catch (error) {
+                console.error('Error fetching emails:', error);
+            }
+        });
+
+        document.getElementById('fetchAddressBook').addEventListener('click', async function () {
+            try {
+                const response = await fetch('/fetch-address-book');
+                const contacts = await response.json();
+
+                const addressBookDiv = document.getElementById('addressBook');
+                addressBookDiv.innerHTML = '';
+                contacts.forEach(contact => {
+                    const p = document.createElement('p');
+                    p.textContent = `${contact.name} - ${contact.email}`;
+                    addressBookDiv.appendChild(p);
+                });
+            } catch (error) {
+                console.error('Error fetching address book:', error);
             }
         });
     </script>
