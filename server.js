@@ -22,7 +22,7 @@ app.get('/home', (req, res) => {
     res.sendFile(path.join(__dirname, 'Project-Kaboothar', 'home.html'));
 });
 
-app.post('/send-email', upload.single('attachments'), async (req, res) => {
+app.post('/send-email', async (req, res) => {
     const {
         to,
         cc,
