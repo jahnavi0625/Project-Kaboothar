@@ -1,27 +1,29 @@
 [
   {
-    "to": "macharlalikhitha05@gmail.com",
+    "to": "jahnavipotnuru25@gmail.com,jahnavipotnuru17@gmail.com",
     "subject": "Test Email",
-    "message": "Let me Know!",
-    "date": "2025-04-06T11:39:57.014Z"
+    "message": "Test Email",
+    "date": "2025-04-08T19:05:51.607Z"
   },
   {
-    "to": "jahnavipotnuru25@gmail.com",
+    "to": [
+      "n200214@rguktn.ac.in"
+    ],
+    "cc": [],
     "subject": "Test Email",
-    "message": "Hey!",
-    "date": "2025-04-06T11:49:46.674Z"
+    "message": "Message",
+    "timestamp": "2025-04-08T19:13:33.482Z"
   },
   {
-    "to": "jahnavipotnuru25@gmail.com",
+    "to": [
+      "jahnavipotnuru25@gmail.com",
+      "jahnavipotnuru17@gmail.com"
+    ],
+    "cc": [],
     "subject": "Test Email",
-    "message": "Hey!",
-    "date": "2025-04-06T11:50:27.818Z"
-  },
-  {
-    "to": "jahnavipotnuru25@gmail.com",
-    "subject": "Test Email",
-    "message": "hey!",
-    "date": "2025-04-06T11:50:42.748Z"
+    "message": "Test Email",
+    "attachment": "Screenshot (23).png",
+    "timestamp": "2025-04-08T19:16:05.017Z"
   },
   {
     "to": [
@@ -30,9 +32,14 @@
     "cc": [
       "jahnavipotnuru17@gmail.com"
     ],
-    "subject": "Test Email",
-    "attachment": "Screenshot (23).png",
-    "timestamp": "2025-04-06T12:04:58.312Z"
+    "subject": "Has Message and Attachment",
+    "message": "Hey!",
+    "attachments": [
+      "Screenshot (1).png",
+      "Screenshot (2).png",
+      "Screenshot (3).png"
+    ],
+    "timestamp": "2025-04-08T19:24:38.969Z"
   },
   {
     "to": [
@@ -41,26 +48,9 @@
     "cc": [
       "jahnavipotnuru17@gmail.com"
     ],
-    "subject": "Test Email",
-    "attachment": "Screenshot (23).png",
-    "timestamp": "2025-04-06T12:08:48.497Z"
-  },
-  {
-    "to": "jahnavipotnuru25@gmail.com",
-    "subject": "Test Email",
+    "subject": "Has Message and Attachment",
     "message": "Hey!",
-    "date": "2025-04-06T14:32:49.064Z"
-  },
-  {
-    "to": "jahnavipotnuru25@gmail.com",
-    "subject": "Test Email",
-    "message": "Hey!",
-    "date": "2025-04-06T14:32:51.818Z"
-  },
-  {
-    "to": "jahnavipotnuru25@gmail.com",
-    "subject": "Test Email",
-    "message": "Hey!",
-    "date": "2025-04-06T16:23:10.151Z"
+    "attachments": [],
+    "timestamp": "2025-04-08T19:30:20.987Z"
   }
 ]
